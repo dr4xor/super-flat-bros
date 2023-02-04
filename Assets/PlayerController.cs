@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerNameTextField;
     
     public string PlayerName;
+    public string PlayerId;
     [SerializeField] private float speed = 5;
     [SerializeField] private bool isLocalPlayer = false;
     public bool IsLocalPlayer
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
             // Attack on mouse down
             if (Input.GetKeyDown(KeyCode.M))
             {
-                StartCoroutine(ExecuteAttack(direction: lastDirection));
+                Attack();
             }
         }
 
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour
     }
     
     
-    void UpdateMovement(float horizontal, float vertical)
+    public void UpdateMovement(float horizontal, float vertical)
     {
         // If the player is moving, update the last direction
         if (horizontal != 0 || vertical != 0)
@@ -84,6 +85,11 @@ public class PlayerController : MonoBehaviour
         
         // Set the rigidbody velocity
         rigidbody2D.velocity = new Vector2(horizontal, vertical) * speed;
+    }
+
+    public void Attack()
+    {
+        StartCoroutine(ExecuteAttack(direction: lastDirection));
     }
 
     IEnumerator ExecuteAttack(Vector2 direction)
@@ -146,6 +152,6 @@ public class PlayerController : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         
         yield return new WaitForSeconds(2);
-        GameManager.Instance.RemovePlayer(this);
+        GameManager.Instance.RemovePlayer(this.PlayerId);
     }
 }
