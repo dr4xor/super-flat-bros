@@ -51,6 +51,9 @@ MonoBehaviour:
   rigidbody2D: {fileID: 6639188843425461628}
   speed: 5
   isLocalPlayer: 1
+  attackDamage: 5
+  damageValue: 0
+  isDead: 0
 --- !u!50 &6639188843425461628
 Rigidbody2D:
   serializedVersion: 4

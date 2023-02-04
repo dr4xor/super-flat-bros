@@ -7,12 +7,18 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidbody2D;
+
+    public string PlayerName { get; set; }
     [SerializeField] private float speed = 5;
     [SerializeField] private bool isLocalPlayer = false;
     [SerializeField] private float attackDamage = 5;
     private Vector2 lastDirection = Vector2.zero;
     
     [SerializeField] private float damageValue = 20;
+    public float DamageValue
+    {
+        get { return damageValue; }
+    }
 
     [SerializeField] private bool isDead = false;
 
@@ -25,7 +31,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isLocalPlayer)
+        if (isLocalPlayer && isDead == false)
         {
             // Get the horizontal and vertical input
             float horizontal = Input.GetAxis("Horizontal");
@@ -128,5 +134,6 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("IsDead", true);
         isDead = true;
+        GetComponent<Collider2D>().enabled = false;
     }
 }
