@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,10 +8,16 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidbody2D;
-
-    public string PlayerName { get; set; }
+    [SerializeField] private TextMeshProUGUI playerNameTextField;
+    
+    public string PlayerName;
     [SerializeField] private float speed = 5;
     [SerializeField] private bool isLocalPlayer = false;
+    public bool IsLocalPlayer
+    {
+        get { return isLocalPlayer; }
+        set { isLocalPlayer = value; }
+    }
     [SerializeField] private float attackDamage = 5;
     private Vector2 lastDirection = Vector2.zero;
     
@@ -25,7 +32,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerNameTextField.SetText(PlayerName);
     }
 
     // Update is called once per frame
@@ -132,10 +139,13 @@ public class PlayerController : MonoBehaviour
         return Mathf.Min(Mathf.Max(1, multiplier), 10);
     }
 
-    public void Kill()
+    public IEnumerator Kill()
     {
         animator.SetBool("IsDead", true);
         isDead = true;
         GetComponent<Collider2D>().enabled = false;
+        
+        yield return new WaitForSeconds(2);
+        GameManager.Instance.RemovePlayer(this);
     }
 }

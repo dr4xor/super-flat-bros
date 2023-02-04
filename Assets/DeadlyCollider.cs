@@ -20,7 +20,7 @@ public class DeadlyCollider : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerController>().Kill();
+            StartCoroutine(other.gameObject.GetComponent<PlayerController>().Kill());
         }
     }
 }
