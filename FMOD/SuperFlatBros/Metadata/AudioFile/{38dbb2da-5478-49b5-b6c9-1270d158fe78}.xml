@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{38dbb2da-5478-49b5-b6c9-1270d158fe78}">
+		<property name="assetPath">
+			<value>SFB_BGMLoop.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>72</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f776a312-1f91-4c53-bbb7-d97d1ac6aff0}</destination>
+		</relationship>
+	</object>
+</objects>
