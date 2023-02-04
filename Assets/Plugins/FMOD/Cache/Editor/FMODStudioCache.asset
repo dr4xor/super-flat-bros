@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638111298476192387
+  lastModified: 638111327130728085
   FileSizes:
   - Name: Desktop
-    Value: 800
+    Value: 894
   Exists: 1
 --- !u!114 &-3021463786493117914
 MonoBehaviour:
@@ -35,7 +35,7 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638111298494318007
+  lastModified: 638111327130975047
   FileSizes:
   - Name: Desktop
     Value: 892640
@@ -56,15 +56,44 @@ MonoBehaviour:
   - {fileID: -3838356813562788755}
   - {fileID: 2423850872973297970}
   - {fileID: -3021463786493117914}
+  - {fileID: 4849255492519050346}
   EditorEvents:
   - {fileID: 2615398682108710906}
+  - {fileID: 1335070690504584731}
   EditorParameters: []
   MasterBanks:
   - {fileID: 2423850872973297970}
   StringsBanks:
   - {fileID: -3838356813562788755}
-  cacheTime: 638111298494318007
+  cacheTime: 638111327131568281
   cacheVersion: 131601
+--- !u!114 &1335070690504584731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sword
+  m_EditorClassIdentifier: 
+  Path: event:/Sword
+  Guid:
+    Data1: -445846844
+    Data2: 1235205479
+    Data3: 1509416083
+    Data4: 1071833584
+  Banks:
+  - {fileID: 4849255492519050346}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 686
 --- !u!114 &2423850872973297970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +109,7 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638111298476172339
+  lastModified: 638111327130708188
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -112,3 +141,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 73500
+--- !u!114 &4849255492519050346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/SuperFlatBros/Build/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 638111327131568281
+  FileSizes:
+  - Name: Desktop
+    Value: 35328
+  Exists: 1

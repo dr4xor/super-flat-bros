@@ -83,6 +83,8 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger("Attack");
 
+        FMODManager.Instance.PlaySwordSound();
+
         yield return new WaitForSeconds(0.25f); // Wait for the attack animation to play
         
         // Send raycast 1 unit in the attack direction and punch every player that is hit

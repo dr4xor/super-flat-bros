@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1bd632eb-a165-4028-8c05-6ed90de96ba8}">
+		<property name="assetPath">
+			<value>sword-swipes-7174-01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.67837499999999995</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f776a312-1f91-4c53-bbb7-d97d1ac6aff0}</destination>
+		</relationship>
+	</object>
+</objects>
