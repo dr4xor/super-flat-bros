@@ -123,6 +123,10 @@ public class PlayerController : MonoBehaviour
         
         // Add damage percentage
         damageValue += damage;
+
+        print(damageValue);
+        FMODManager.Instance.PlayHitSound((int) Mathf.Min(damageValue / 33, 2));
+        print(Mathf.Min(damageValue / 33, 2));
     }
     
     float GetForceBecauseOfDamageMultiplier()
