@@ -139,6 +139,7 @@ public class PlayerController : MonoBehaviour
     public void Kill()
     {
         animator.SetBool("IsDead", true);
+        FMODManager.Instance.PlayDeathSound();
         isDead = true;
         GetComponent<Collider2D>().enabled = false;
     }
