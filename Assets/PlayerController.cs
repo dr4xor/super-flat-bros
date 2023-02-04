@@ -7,11 +7,20 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidbody2D;
-    
-    [SerializeField] private float speed = 5;
 
+    public string PlayerName { get; set; }
+    [SerializeField] private float speed = 5;
     [SerializeField] private bool isLocalPlayer = false;
+    [SerializeField] private float attackDamage = 5;
+    private Vector2 lastDirection = Vector2.zero;
     
+    [SerializeField] private float damageValue = 20;
+    public float DamageValue
+    {
+        get { return damageValue; }
+    }
+
+    [SerializeField] private bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,19 +31,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isLocalPlayer)
+        if (isLocalPlayer && isDead == false)
         {
             // Get the horizontal and vertical input
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-
-
+            
             UpdateMovement(horizontal, vertical);
         
             // Attack on mouse down
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.M))
             {
-                ExecuteAttack();
+                StartCoroutine(ExecuteAttack(direction: lastDirection));
             }
         }
 
@@ -57,16 +65,75 @@ public class PlayerController : MonoBehaviour
     
     void UpdateMovement(float horizontal, float vertical)
     {
-        // Set the animator parameters
-        animator.SetFloat("X", horizontal);
-        animator.SetFloat("Y", vertical);
+        // If the player is moving, update the last direction
+        if (horizontal != 0 || vertical != 0)
+        {
+            lastDirection = new Vector2(horizontal, vertical).normalized;
+                
+            // Set the animator parameters
+            animator.SetFloat("X", lastDirection.x);
+            animator.SetFloat("Y", lastDirection.y);
+        }
         
         // Set the rigidbody velocity
         rigidbody2D.velocity = new Vector2(horizontal, vertical) * speed;
     }
 
-    void ExecuteAttack()
+    IEnumerator ExecuteAttack(Vector2 direction)
     {
         animator.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(0.25f); // Wait for the attack animation to play
+        
+        // Send raycast 1 unit in the attack direction and punch every player that is hit
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1);
+        
+        // Only damage players that are in a 30 degree angle to the attack direction
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject.CompareTag("Player"))
+            {
+                Vector2 hitDirection = hit.transform.position - transform.position;
+                float angle = Vector2.Angle(direction, hitDirection);
+                
+                if (angle < 45)
+                {
+                    PlayerController playerController = hit.gameObject.GetComponent<PlayerController>();
+
+                    if (playerController == this)
+                    {
+                        continue;
+                    }
+                    
+                    playerController.Damage(direction, attackDamage);
+                }
+            }
+        }
+    }
+    
+    void Damage(Vector2 direction, float damage)
+    {
+        animator.SetTrigger("OnDamage");
+        
+        // Punch the player in the direction
+        rigidbody2D.AddForce((direction.normalized * (damage * 100) * GetForceBecauseOfDamageMultiplier()));
+        
+        
+        // Add damage percentage
+        damageValue += damage;
+    }
+    
+    float GetForceBecauseOfDamageMultiplier()
+    {
+        float multiplier = damageValue / 100;
+        
+        return Mathf.Min(Mathf.Max(1, multiplier), 10);
+    }
+
+    public void Kill()
+    {
+        animator.SetBool("IsDead", true);
+        isDead = true;
+        GetComponent<Collider2D>().enabled = false;
     }
 }

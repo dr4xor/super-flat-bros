@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6639188843425461629}
   - component: {fileID: 6639188843425461570}
   - component: {fileID: 6639188843425461628}
-  - component: {fileID: 6639188843425461631}
+  - component: {fileID: 3298414564179913185}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,6 +51,9 @@ MonoBehaviour:
   rigidbody2D: {fileID: 6639188843425461628}
   speed: 5
   isLocalPlayer: 1
+  attackDamage: 5
+  damageValue: 0
+  isDead: 0
 --- !u!50 &6639188843425461628
 Rigidbody2D:
   serializedVersion: 4
@@ -72,8 +75,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &6639188843425461631
-BoxCollider2D:
+--- !u!58 &3298414564179913185
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -86,18 +89,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
 --- !u!1001 &6639188843120463953
 PrefabInstance:
   m_ObjectHideFlags: 0
