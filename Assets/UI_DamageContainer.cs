@@ -20,6 +20,6 @@ public class UI_DamageContainer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DamageTextField.SetText(Mathf.RoundToInt(playerController.DamageValue).ToString());
+        DamageTextField.SetText(Mathf.RoundToInt(playerController.DamageValue).ToString() + "%");
     }
 }

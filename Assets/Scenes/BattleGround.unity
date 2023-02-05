@@ -5172,6 +5172,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 800034683, guid: 05625db4fcf53504dadcc91b701b58f5, type: 3}
+      propertyPath: address
+      value: 192.168.43.61
+      objectReference: {fileID: 0}
     - target: {fileID: 1583147865939036688, guid: 05625db4fcf53504dadcc91b701b58f5, type: 3}
       propertyPath: m_Name
       value: GameManager

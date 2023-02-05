@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using WebSocketServer;
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         print(playerPrefab.tag);
         InstantiatePlayer("debug1", isLocalPlayer: true);
-        InstantiatePlayer("debug2");
+        InstantiatePlayer("debug2", isLocalPlayer: true);
     }
     
     
@@ -78,22 +79,19 @@ public class GameManager : MonoBehaviour
     public void OnWebsocketMessage(WebSocketMessage message)
     {
         var playerController = players[message.connection.id];
-
-        // Parse message data as JSON
-        
-        var data = JsonUtility.FromJson<Dictionary<string, string>>(message.data);
-        
-        var eventType = data["event"];
-
-        switch (eventType)
+        if (message.data == "ATTACK")
         {
-            case "ATTACK":
-                playerController.Attack();
-                break;
-            
-            case "MOVE":
-                playerController.UpdateMovement(float.Parse(data["x"]),float.Parse(data["x"]));
-                break;
+            playerController.Attack();
+            return;
+        }
+        
+        if (message.data.StartsWith("MOVE"))
+        {
+            var x = message.data.Split('/')[1];
+            var y = message.data.Split('/')[2];
+
+            playerController.UpdateMovement(float.Parse(x, CultureInfo.InvariantCulture),-float.Parse(y, CultureInfo.InvariantCulture));
+            return;
         }
     }
     

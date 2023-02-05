@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private bool isDead = false;
 
+    private bool isFlying = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,18 +41,68 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isLocalPlayer && isDead == false)
+        if (isLocalPlayer && PlayerName == "P1")
         {
-            // Get the horizontal and vertical input
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
+            float vertical = 0;
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                vertical = 1;
+            } else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                vertical = -1;
+            }
             
+            float horizontal = 0;
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                horizontal = -1;
+            } else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                horizontal = 1;
+            }
             UpdateMovement(horizontal, vertical);
         
             // Attack on mouse down
             if (Input.GetKeyDown(KeyCode.M))
             {
                 Attack();
+            }
+        }
+
+        if (isLocalPlayer && PlayerName == "P2")
+        {
+            float vertical = 0;
+            if (Input.GetKey(KeyCode.W))
+            {
+                vertical = 1;
+            } else if (Input.GetKey(KeyCode.S))
+            {
+                vertical = -1;
+            }
+            
+            float horizontal = 0;
+            if (Input.GetKey(KeyCode.A))
+            {
+                horizontal = -1;
+            } else if (Input.GetKey(KeyCode.D))
+            {
+                horizontal = 1;
+            }
+            
+            UpdateMovement(horizontal, vertical);
+            // Attack on mouse down
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Attack();
+            }
+        }
+        
+        if (isFlying)
+        {
+            //Wait for velocity to reach lower magnitude
+            if (rigidbody2D.velocity.magnitude < 1)
+            {
+                isFlying = false;
             }
         }
 
@@ -70,25 +122,47 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    public void UpdateInput(float horizontal, float vertical)
+    {
+        if (horizontal == 0 && vertical == 0)
+        {
+            lastDirection = Vector2.zero;
+        }
+        else
+        {
+            lastDirection = new Vector2(horizontal, vertical).normalized;
+        }
+
+    }
     
     public void UpdateMovement(float horizontal, float vertical)
     {
+        if (isFlying || isDead)
+        {
+            // Ignore Inputs
+            return;
+        }
         // If the player is moving, update the last direction
         if (horizontal != 0 || vertical != 0)
         {
-            lastDirection = new Vector2(horizontal, vertical).normalized;
-                
             // Set the animator parameters
-            animator.SetFloat("X", lastDirection.x);
-            animator.SetFloat("Y", lastDirection.y);
+            animator.SetFloat("X", horizontal);
+            animator.SetFloat("Y", vertical);
+
+            lastDirection = new Vector2(horizontal, vertical).normalized;
         }
         
         // Set the rigidbody velocity
-        rigidbody2D.velocity = new Vector2(horizontal, vertical) * speed;
+        rigidbody2D.velocity = (new Vector2(horizontal, vertical)).normalized * speed;
     }
 
     public void Attack()
     {
+        if (isFlying || isDead)
+        {
+            // Ignore Attack
+            return;
+        }
         StartCoroutine(ExecuteAttack(direction: lastDirection));
     }
 
@@ -129,11 +203,12 @@ public class PlayerController : MonoBehaviour
     void Damage(Vector2 direction, float damage)
     {
         animator.SetTrigger("OnDamage");
+        isFlying = true;
         
         // Punch the player in the direction
         rigidbody2D.AddForce((direction.normalized * (damage * 100) * GetForceBecauseOfDamageMultiplier()));
-        
-        
+
+
         // Add damage percentage
         damageValue += damage;
     }
