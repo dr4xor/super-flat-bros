@@ -24,6 +24,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-8081547802660810279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Death
+  m_EditorClassIdentifier: 
+  Path: event:/Death
+  Guid:
+    Data1: 521542512
+    Data2: 1080144794
+    Data3: -1352256328
+    Data4: -1424843222
+  Banks:
+  - {fileID: 4849255492519050346}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1591
 --- !u!114 &-3838356813562788755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,7 +66,7 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638111522396591313
+  lastModified: 638112063264709669
   FileSizes:
   - Name: Desktop
     Value: 1014
@@ -59,11 +86,39 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638111522396899019
+  lastModified: 638112063264799639
   FileSizes:
   - Name: Desktop
     Value: 892640
   Exists: 1
+--- !u!114 &-521689654091219117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Hit
+  m_EditorClassIdentifier: 
+  Path: event:/Hit
+  Guid:
+    Data1: 1447703254
+    Data2: 1237657799
+    Data3: -54150232
+    Data4: 422602804
+  Banks:
+  - {fileID: 4849255492519050346}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3285265046474368387}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,14 +139,14 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: 2615398682108710906}
   - {fileID: 1335070690504584731}
-  - {fileID: 3818582165431912692}
-  - {fileID: 6430762269523514985}
+  - {fileID: -8081547802660810279}
+  - {fileID: -521689654091219117}
   EditorParameters: []
   MasterBanks:
   - {fileID: 2423850872973297970}
   StringsBanks:
   - {fileID: -3838356813562788755}
-  cacheTime: 638111522397160115
+  cacheTime: 638112063264829677
   cacheVersion: 131601
 --- !u!114 &1335070690504584731
 MonoBehaviour:
@@ -135,7 +190,7 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638111522396581422
+  lastModified: 638111317734923869
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -167,6 +222,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 73500
+--- !u!114 &3285265046474368387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Hit/Intensity
+  m_EditorClassIdentifier: 
+  Name: Intensity
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 1896342577
+    data2: 2059201241
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &3818582165431912692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +289,7 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638111522397160115
+  lastModified: 638112063264829677
   FileSizes:
   - Name: Desktop
     Value: 81728

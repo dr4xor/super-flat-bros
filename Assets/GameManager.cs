@@ -65,30 +65,20 @@ public class GameManager : MonoBehaviour
         Destroy(playerController.gameObject);
     }
 
-
-    public void OnWebsocketOpened(WebSocketConnection connection)
-    {
-        InstantiatePlayer(connection.id);
-    }
     
-    public void OnWebsocketClosed(WebSocketConnection connection)
+    public void OnWebsocketMessage(string playerId, string message)
     {
-        RemovePlayer(connection.id);
-    }
-    
-    public void OnWebsocketMessage(WebSocketMessage message)
-    {
-        var playerController = players[message.connection.id];
-        if (message.data == "ATTACK")
+        var playerController = players[playerId];
+        if (message == "ATTACK")
         {
             playerController.Attack();
             return;
         }
         
-        if (message.data.StartsWith("MOVE"))
+        if (message.StartsWith("MOVE"))
         {
-            var x = message.data.Split('/')[1];
-            var y = message.data.Split('/')[2];
+            var x = message.Split('/')[1];
+            var y = message.Split('/')[2];
 
             playerController.UpdateMovement(float.Parse(x, CultureInfo.InvariantCulture),-float.Parse(y, CultureInfo.InvariantCulture));
             return;
