@@ -230,6 +230,8 @@ public class PlayerController : MonoBehaviour
         damageValue += damage;
         rigidbody2D.AddForce((direction.normalized * (damage * 100) * GetForceBecauseOfDamageMultiplier()));
 
+        FMODManager.Instance.PlayHitSound((int) Mathf.Min(damageValue / 33, 2));
+
         yield return new WaitForSeconds(0.05f);
         waitForFlyEnd = true;
     }
@@ -244,6 +246,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Kill()
     {
         animator.SetBool("IsDead", true);
+        FMODManager.Instance.PlayDeathSound();
         isDead = true;
         GetComponent<Collider2D>().enabled = false;
         
