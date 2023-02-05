@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDead = false;
 
     private bool isFlying = false;
+    private bool waitForFlyEnd = false;
 
     // Start is called before the first frame update
     void Start()
@@ -41,75 +43,82 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isLocalPlayer && PlayerName == "P1")
-        {
-            float vertical = 0;
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                vertical = 1;
-            } else if (Input.GetKey(KeyCode.DownArrow))
-            {
-                vertical = -1;
-            }
-            
-            float horizontal = 0;
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                horizontal = -1;
-            } else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                horizontal = 1;
-            }
-            UpdateMovement(horizontal, vertical);
-        
-            // Attack on mouse down
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                Attack();
-            }
-        }
-
-        if (isLocalPlayer && PlayerName == "P2")
-        {
-            float vertical = 0;
-            if (Input.GetKey(KeyCode.W))
-            {
-                vertical = 1;
-            } else if (Input.GetKey(KeyCode.S))
-            {
-                vertical = -1;
-            }
-            
-            float horizontal = 0;
-            if (Input.GetKey(KeyCode.A))
-            {
-                horizontal = -1;
-            } else if (Input.GetKey(KeyCode.D))
-            {
-                horizontal = 1;
-            }
-            
-            UpdateMovement(horizontal, vertical);
-            // Attack on mouse down
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                Attack();
-            }
-        }
         
         if (isFlying)
         {
-            //Wait for velocity to reach lower magnitude
-            if (rigidbody2D.velocity.magnitude < 1)
+            if (waitForFlyEnd)
             {
-                isFlying = false;
+                //Wait for velocity to reach lower magnitude
+                if (rigidbody2D.velocity.magnitude < 0.1)
+                {
+                    waitForFlyEnd = false;
+                    isFlying = false;
+                }   
+            }
+        }
+        else
+        {
+            if (isLocalPlayer && PlayerName == "P1")
+            {
+                float vertical = 0;
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    vertical = 1;
+                } else if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    vertical = -1;
+                }
+            
+                float horizontal = 0;
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    horizontal = -1;
+                } else if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    horizontal = 1;
+                }
+                UpdateMovement(horizontal, vertical);
+        
+                // Attack on mouse down
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    Attack();
+                }
+            }
+
+            if (isLocalPlayer && PlayerName == "P2")
+            {
+                float vertical = 0;
+                if (Input.GetKey(KeyCode.W))
+                {
+                    vertical = 1;
+                } else if (Input.GetKey(KeyCode.S))
+                {
+                    vertical = -1;
+                }
+            
+                float horizontal = 0;
+                if (Input.GetKey(KeyCode.A))
+                {
+                    horizontal = -1;
+                } else if (Input.GetKey(KeyCode.D))
+                {
+                    horizontal = 1;
+                }
+            
+                UpdateMovement(horizontal, vertical);
+                // Attack on mouse down
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    Attack();
+                }
             }
         }
 
 
         UpdateAnimatorParameters();
     }
-    
+
     void UpdateAnimatorParameters()
     {
         if(rigidbody2D.velocity.magnitude > 1)
@@ -137,11 +146,7 @@ public class PlayerController : MonoBehaviour
     
     public void UpdateMovement(float horizontal, float vertical)
     {
-        if (isFlying || isDead)
-        {
-            // Ignore Inputs
-            return;
-        }
+        
         // If the player is moving, update the last direction
         if (horizontal != 0 || vertical != 0)
         {
@@ -150,6 +155,13 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Y", vertical);
 
             lastDirection = new Vector2(horizontal, vertical).normalized;
+        }
+        
+        
+        if (isFlying || isDead)
+        {
+            // Ignore Inputs
+            return;
         }
         
         // Set the rigidbody velocity
@@ -202,15 +214,24 @@ public class PlayerController : MonoBehaviour
     
     void Damage(Vector2 direction, float damage)
     {
+        StartCoroutine(ExecuteDamage(direction, damage));
+    }
+
+    IEnumerator ExecuteDamage(Vector2 direction, float damage)
+    {
         animator.SetTrigger("OnDamage");
         isFlying = true;
-        
+
+
+        yield return new WaitForSeconds(0.05f);
         // Punch the player in the direction
-        rigidbody2D.AddForce((direction.normalized * (damage * 100) * GetForceBecauseOfDamageMultiplier()));
-
-
+        
         // Add damage percentage
         damageValue += damage;
+        rigidbody2D.AddForce((direction.normalized * (damage * 100) * GetForceBecauseOfDamageMultiplier()));
+
+        yield return new WaitForSeconds(0.05f);
+        waitForFlyEnd = true;
     }
     
     float GetForceBecauseOfDamageMultiplier()
