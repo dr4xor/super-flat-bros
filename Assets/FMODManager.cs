@@ -8,6 +8,7 @@ public class FMODManager : Singleton<FMODManager>
     private FMOD.Studio.EventInstance _sword;
     private FMOD.Studio.EventInstance _hit;
     private FMOD.Studio.EventInstance _death;
+    private FMOD.Studio.EventInstance _start;
 
     void Start()
     {
@@ -15,7 +16,9 @@ public class FMODManager : Singleton<FMODManager>
         _sword = FMODUnity.RuntimeManager.CreateInstance("event:/Sword");
         _hit = FMODUnity.RuntimeManager.CreateInstance("event:/Hit");
         _death = FMODUnity.RuntimeManager.CreateInstance("event:/Death");
+        _start = FMODUnity.RuntimeManager.CreateInstance("event:/Start");
         StartBGM();
+        PlayStartSound();
     }
 
     void Update()
@@ -47,6 +50,11 @@ public class FMODManager : Singleton<FMODManager>
     public void PlayDeathSound()
     {
         _death.start();
+    }
+
+    public void PlayStartSound()
+    {
+        _start.start();
     }
 
 }
