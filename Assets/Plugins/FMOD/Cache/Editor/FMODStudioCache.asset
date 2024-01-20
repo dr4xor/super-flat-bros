@@ -66,7 +66,7 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638112131147481879
+  lastModified: 638413614760643503
   FileSizes:
   - Name: Desktop
     Value: 1062
@@ -86,7 +86,7 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638112131147867828
+  lastModified: 638413614760648876
   FileSizes:
   - Name: Desktop
     Value: 892640
@@ -115,7 +115,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 3285265046474368387}
+  - {fileID: 0}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   - {fileID: 2423850872973297970}
   StringsBanks:
   - {fileID: -3838356813562788755}
-  cacheTime: 638112131148237044
+  cacheTime: 638413614760651986
   cacheVersion: 131601
 --- !u!114 &1335070690504584731
 MonoBehaviour:
@@ -191,7 +191,7 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638112131147456171
+  lastModified: 638413614760642409
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -293,7 +293,7 @@ MonoBehaviour:
   Path: FMOD/SuperFlatBros/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638112131148237044
+  lastModified: 638413614760651986
   FileSizes:
   - Name: Desktop
     Value: 119968
